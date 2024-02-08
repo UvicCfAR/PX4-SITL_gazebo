@@ -62,15 +62,45 @@ namespace gazebo
     /// where q (dynamic pressure) = 0.5 * rho * v^2
     protected: double cla;
 
+    /// \brief Coefficient of Drag
+    /// Drag = C_D * q * S
+    /// where q (dynamic pressure) = 0.5 * rho * v^2
+    protected: double cd0;
+
     /// \brief Coefficient of Drag / alpha slope.
     /// Drag = C_D * q * S
     /// where q (dynamic pressure) = 0.5 * rho * v^2
     protected: double cda;
 
+    /// \brief Coefficient quadratic of Drag / alpha slope.
+    /// Drag = C_D * q * S
+    /// where q (dynamic pressure) = 0.5 * rho * v^2
+    protected: double cda2;
+
+    /// \brief Coefficient of Moment
+    /// Moment = C_M * q * S
+    /// where q (dynamic pressure) = 0.5 * rho * v^2
+    protected: double cma0;
+
     /// \brief Coefficient of Moment / alpha slope.
     /// Moment = C_M * q * S
     /// where q (dynamic pressure) = 0.5 * rho * v^2
     protected: double cma;
+
+    /// \brief Coefficient quadratic of Moment / alpha slope.
+    /// Moment = C_M * q * S
+    /// where q (dynamic pressure) = 0.5 * rho * v^2
+    protected: double cma2;
+
+    /// \brief Coefficient qubic of Moment / alpha slope.
+    /// Moment = C_M * q * S
+    /// where q (dynamic pressure) = 0.5 * rho * v^2
+    protected: double cma3;
+
+    /// \brief Coefficient 4th power of Moment / alpha slope.
+    /// Moment = C_M * q * S
+    /// where q (dynamic pressure) = 0.5 * rho * v^2
+    protected: double cma4;
 
     /// \brief angle of attack when airfoil stalls
     protected: double alphaStall;

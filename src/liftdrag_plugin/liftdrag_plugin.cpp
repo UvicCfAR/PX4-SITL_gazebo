@@ -33,7 +33,7 @@ using namespace gazebo;
 GZ_REGISTER_MODEL_PLUGIN(LiftDragPlugin)
 
 /////////////////////////////////////////////////
-LiftDragPlugin::LiftDragPlugin() : cla(1.0), cda(0.01), cma(0.0), rho(1.2041)
+LiftDragPlugin::LiftDragPlugin() : cla(1.0), cda(0.01), cda2(0.01), cd0(0.01), cma(0.0), cma0(0.0), cma2(0.0), cma3(0.0), cma4(0.0), rho(1.2041)
 {
   this->cp = ignition::math::Vector3d(0, 0, 0);
   this->forward = ignition::math::Vector3d(1, 0, 0);
@@ -99,11 +99,29 @@ void LiftDragPlugin::Load(physics::ModelPtr _model,
   if (_sdf->HasElement("cla"))
     this->cla = _sdf->Get<double>("cla");
 
+  if (_sdf->HasElement("cd0"))
+    this->cd0 = _sdf->Get<double>("cd0");
+
   if (_sdf->HasElement("cda"))
     this->cda = _sdf->Get<double>("cda");
 
+  if (_sdf->HasElement("cda2"))
+    this->cda2 = _sdf->Get<double>("cda2");
+
+  if (_sdf->HasElement("cma0"))
+    this->cma0 = _sdf->Get<double>("cma0");
+
   if (_sdf->HasElement("cma"))
     this->cma = _sdf->Get<double>("cma");
+
+  if (_sdf->HasElement("cma2"))
+    this->cma2 = _sdf->Get<double>("cma2");
+
+  if (_sdf->HasElement("cma3"))
+    this->cma3 = _sdf->Get<double>("cma3");
+
+  if (_sdf->HasElement("cma4"))
+    this->cma4 = _sdf->Get<double>("cma4");
 
   if (_sdf->HasElement("alpha_stall"))
     this->alphaStall = _sdf->Get<double>("alpha_stall");
@@ -357,7 +375,9 @@ void LiftDragPlugin::OnUpdate()
          * cosSweepAngle;
   }
   else
-    cd = (this->cda * this->alpha) * cosSweepAngle;
+    cd = this->cd0 +
+          (this->cda * this->alpha) +
+          (this->cda2 * this->alpha * this->alpha);
 
   // make sure drag is positive
   cd = fabs(cd);
@@ -384,7 +404,11 @@ void LiftDragPlugin::OnUpdate()
     cm = std::min(0.0, cm);
   }
   else
-    cm = this->cma * this->alpha * cosSweepAngle;
+    cm = this->cma0 +
+          (this->cma * this->alpha) +
+          (this->cma2 * this->alpha* this->alpha) +
+          (this->cma3 * this->alpha* this->alpha* this->alpha) +
+          (this->cma4 * this->alpha* this->alpha* this->alpha* this->alpha);
 
   // Take into account the effect of control surface deflection angle to Cm
   cm += this->cm_delta * controlAngle;
