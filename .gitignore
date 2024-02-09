@@ -31,3 +31,7 @@ models/standard_vtol_drop/standard_vtol_drop.sdf
 models/tailsitter/tailsitter.sdf
 models/advanced_plane/advanced_plane.sdf
 models/quadtailsitter/quadtailsitter.sdf
+models/MIMIQ/MIMIQ.sdf
+models/MIMIQLight/MIMIQLight.sdf
+models/mini_e/mini_e.sdf
+models/tarot_650/tarot_650.sdf
