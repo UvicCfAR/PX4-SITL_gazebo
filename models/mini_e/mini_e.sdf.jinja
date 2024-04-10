@@ -1,11 +1,12 @@
-<?xml version='1.0'?>
-<sdf version='1.6'>
+<?xml version="1.0"?>
+<!-- DO NOT EDIT: Generated from standard_vtol.sdf.jinja -->
+<sdf version='1.5'>
   <model name='mini_e'>
-  <!-- LINKS -->
+    <pose>0 0 0.35 0 0 0</pose>
     <link name='wingfuselage_link'>
-      <pose>0 0 0.35 0 -0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
       <inertial>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <mass>8.2</mass>
         <inertia>
           <ixx>1.159</ixx>
@@ -16,24 +17,6 @@
           <izz>2.3864</izz>
         </inertia>
       </inertial>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>0</self_collide>
-      <visual name='wingfuselage_link_visual'>
-        <pose>1.2 -1.2639 0.26 3.14159 -0 -3.14159</pose>
-        <geometry>
-          <mesh>
-            <uri>model://mini_e/meshes/Fuse_Stationary.STL</uri>
-            <scale>0.001 0.001 0.001</scale>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/DarkGrey</name>
-            <uri>__default__</uri>
-          </script>
-        </material>
-      </visual>
       <collision name='fuselage_collision'>
         <pose>0.3 0 0 0 -0 0</pose>
         <geometry>
@@ -55,6 +38,21 @@
           </friction>
         </surface>
       </collision>
+      <visual name='wingfuselage_link_visual'>
+        <pose>1.2 -1.2639 0.26 3.14159 -0 -3.14159</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://mini_e/meshes/Fuse_Stationary.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>__default__</uri>
+          </script>
+        </material>
+      </visual>
       <collision name='wing_collision'>
         <pose>-0.25 0 0 0 -0 0</pose>
         <geometry>
@@ -141,20 +139,314 @@
       </collision>
     </link>
 
-    <link name='canard'>
+    
+
+    
+
+    <link name='mini_e/imu_link'>
+      <pose>0 0 0 0 0 0</pose>
       <inertial>
-        <mass>1e-08</mass>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.015</mass>
         <inertia>
-          <ixx>1e-06</ixx>
+          <ixx>1e-05</ixx>
           <ixy>0</ixy>
-          <iyy>1e-06</iyy>
           <ixz>0</ixz>
+          <iyy>1e-05</iyy>
           <iyz>0</iyz>
-          <izz>1e-06</izz>
+          <izz>1e-05</izz>
         </inertia>
-        <pose>-0.5 0 0 0 -0 0</pose>
       </inertial>
+    </link>
+  <joint name='mini_e/imu_joint' type='revolute'>
+      <parent>wingfuselage_link</parent>
+      <child>mini_e/imu_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <include>
+      <uri>model://airspeed</uri>
+      <pose>0 0 0 0 0 0</pose>
+      <name>airspeed</name>
+    </include>
+    <joint name='airspeed_joint' type='fixed'>
+      <child>airspeed::link</child>
+      <parent>base_link</parent>
+    </joint>
+    <link name='rotor_0'>
+      <pose>0.52 -0.516 0.27 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>9.75e-07</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000166704</iyy>
+          <iyz>0</iyz>
+          <izz>0.000167604</izz>
+        </inertia>
+      </inertial>
+      <visual name='rotor_0_visual'>
+        <pose>0.676 -0.02 0.044 3.14159 -0 -3.14159</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://mini_e/meshes/VTOL_Rotor_Front_Right.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Blue</name>
+            <uri>__default__</uri>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='rotor_0_joint' type='revolute'>
+      <parent>wingfuselage_link</parent>
+      <child>rotor_0</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='rotor_1'>
+      <pose>-0.52 0.516 0.27 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>9.75e-07</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000166704</iyy>
+          <iyz>0</iyz>
+          <izz>0.000167604</izz>
+        </inertia>
+      </inertial>
+      <visual name='rotor_1_visual'>
+        <pose>0.676 -0.02 0.044 3.14159 -0 -3.14159</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://mini_e/meshes/VTOL_Rotor_Front_Right.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Blue</name>
+            <uri>__default__</uri>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='rotor_1_joint' type='revolute'>
+      <parent>wingfuselage_link</parent>
+      <child>rotor_1</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='rotor_2'>
+      <pose>0.52 0.516 0.27 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>9.75e-07</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000166704</iyy>
+          <iyz>0</iyz>
+          <izz>0.000167604</izz>
+        </inertia>
+      </inertial>
+      <visual name='rotor_2_visual'>
+        <pose>0.676 -0.02 0.044 3.14159 -0 -3.14159</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://mini_e/meshes/VTOL_Rotor_Front_Right.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Blue</name>
+            <uri>__default__</uri>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='rotor_2_joint' type='revolute'>
+      <parent>wingfuselage_link</parent>
+      <child>rotor_2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='rotor_3'>
+      <pose>-0.52 -0.516 0.27 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>9.75e-07</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000166704</iyy>
+          <iyz>0</iyz>
+          <izz>0.000167604</izz>
+        </inertia>
+      </inertial>
+      <visual name='rotor_3_visual'>
+        <pose>0.676 -0.02 0.044 3.14159 -0 -3.14159</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://mini_e/meshes/VTOL_Rotor_Front_Right.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Blue</name>
+            <uri>__default__</uri>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='rotor_3_joint' type='revolute'>
+      <parent>wingfuselage_link</parent>
+      <child>rotor_3</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+
+    <link name='rotor_pusher'>
+      <pose>-0.531000 0 0.317000 0 1.57 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>9.75e-07</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000166704</iyy>
+          <iyz>0</iyz>
+          <izz>0.000167604</izz>
+        </inertia>
+      </inertial>
+
+      <visual name='rotor_pusher_visual'>
+        <pose>-0.190000 -0.024500 1.725000 3.14159 1.57 -3.14159</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://mini_e/meshes/Pusher_Prop.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Blue</name>
+            <uri>__default__</uri>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='rotor_pusher_joint' type='revolute'>
+      <parent>wingfuselage_link</parent>
+      <child>rotor_pusher</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+    </joint>
+
+    <link name='canard'>
       <pose>0.814 0 0.293 0 -0 0</pose>
+      <inertial>
+        <mass>0.00000001</mass>
+        <inertia>
+          <ixx>0.000001</ixx>
+          <ixy>0.0</ixy>
+          <iyy>0.000001</iyy>
+          <ixz>0.0</ixz>
+          <iyz>0.0</iyz>
+          <izz>0.000001</izz>
+        </inertia>
+        <pose>-0.5 0 0 0 0 0</pose>
+      </inertial>
       <visual name='canard_visual'>
         <pose>0.38055 -0.4899 0.0199 3.14159 -0 -3.14159</pose>
         <geometry>
@@ -171,21 +463,20 @@
         </material>
       </visual>
     </link>
-
     <link name='left_aileron'>
-      <inertial>
-        <mass>1e-08</mass>
-        <inertia>
-          <ixx>1e-06</ixx>
-          <ixy>0</ixy>
-          <iyy>1e-06</iyy>
-          <ixz>0</ixz>
-          <iyz>0</iyz>
-          <izz>1e-06</izz>
-        </inertia>
-        <pose>0 0 0 0 -0 0</pose>
-      </inertial>
       <pose>-0.3 1.08 0.35 0 -0 0</pose>
+      <inertial>
+        <mass>0.00000001</mass>
+        <inertia>
+          <ixx>0.000001</ixx>
+          <ixy>0.0</ixy>
+          <iyy>0.000001</iyy>
+          <ixz>0.0</ixz>
+          <iyz>0.0</iyz>
+          <izz>0.000001</izz>
+        </inertia>
+        <pose>0 0 0 0 0 0</pose>
+      </inertial>
       <visual name='left_aileron_visual'>
         <pose>1.4947 -1.0799 0.007 3.14159 -0 -3.14159</pose>
         <geometry>
@@ -202,21 +493,20 @@
         </material>
       </visual>
     </link>
-
     <link name='right_aileron'>
+      <pose>-0.3 -1.08 0.35 0 0 0</pose>
       <inertial>
-        <mass>1e-08</mass>
+        <mass>0.00000001</mass>
         <inertia>
-          <ixx>1e-06</ixx>
-          <ixy>0</ixy>
-          <iyy>1e-06</iyy>
-          <ixz>0</ixz>
-          <iyz>0</iyz>
-          <izz>1e-06</izz>
+          <ixx>0.000001</ixx>
+          <ixy>0.0</ixy>
+          <iyy>0.000001</iyy>
+          <ixz>0.0</ixz>
+          <iyz>0.0</iyz>
+          <izz>0.000001</izz>
         </inertia>
         <pose>0 0 0 0 -0 0</pose>
       </inertial>
-      <pose>-0.3 -1.08 0.35 0 0 0</pose>
       <visual name='right_aileron_visual'>
         <pose>1.4947 -0.12 0.007 3.14159 -0 -3.14159</pose>
         <geometry>
@@ -235,19 +525,19 @@
     </link>
 
     <link name='rudder'>
+      <pose>-0.46 0 0.46 0 -0 0</pose>
       <inertial>
-        <mass>1e-08</mass>
+        <mass>0.00000001</mass>
         <inertia>
-          <ixx>1e-06</ixx>
-          <ixy>0</ixy>
-          <iyy>1e-06</iyy>
-          <ixz>0</ixz>
-          <iyz>0</iyz>
-          <izz>1e-06</izz>
+          <ixx>0.000001</ixx>
+          <ixy>0.0</ixy>
+          <iyy>0.000001</iyy>
+          <ixz>0.0</ixz>
+          <iyz>0.0</iyz>
+          <izz>0.000001</izz>
         </inertia>
         <pose>0 0 0 0 0 0</pose>
       </inertial>
-      <pose>-0.46 0 0.46 0 -0 0</pose>
       <visual name='rudder_visual'>
         <pose>1.6545 -0.0022 0.149 3.14159 -0 -3.14159</pose>
         <geometry>
@@ -264,238 +554,6 @@
         </material>
       </visual>
     </link>
-
-    <link name='mini_e/imu_link'>
-      <pose>0 0 0.35 0 -0 0</pose>
-      <inertial>
-        <pose>0 0 0 0 -0 0</pose>
-        <mass>0.015</mass>
-        <inertia>
-          <ixx>1e-05</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1e-05</iyy>
-          <iyz>0</iyz>
-          <izz>1e-05</izz>
-        </inertia>
-      </inertial>
-      <self_collide>0</self_collide>
-      <enable_wind>0</enable_wind>
-      <kinematic>0</kinematic>
-    </link>
-
-    <include>
-      <uri>model://airspeed</uri>
-      <pose>0 0 0.35 0 0 0</pose>
-      <name>airspeed</name>
-    </include>
-
-    <include>
-      <uri>model://gps</uri>
-      <pose>0 0 0.35 0 -0 0</pose>
-      <name>gps</name>
-    </include>
-
-    <link name='rotor_0'>
-      <pose>0.52 -0.516 0.27 0 -0 0</pose>
-      <inertial>
-        <pose>0 0 0 0 -0 0</pose>
-        <mass>0.005</mass>
-        <inertia>
-          <ixx>9.75e-07</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.000166704</iyy>
-          <iyz>0</iyz>
-          <izz>0.000167604</izz>
-        </inertia>
-      </inertial>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>0</self_collide>
-      <enable_wind>0</enable_wind>
-      <kinematic>0</kinematic>
-      <visual name='rotor_0_visual'>
-        <pose>0.676 -0.02 0.044 3.14159 -0 -3.14159</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mini_e/meshes/VTOL_Rotor_Front_Right.STL</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Blue</name>
-            <uri>__default__</uri>
-          </script>
-          <shader type='pixel'/>
-        </material>
-        <transparency>0</transparency>
-        <cast_shadows>1</cast_shadows>
-      </visual>
-    </link>
-
-    <link name='rotor_1'>
-      <pose>-0.52 0.516 0.27 0 -0 0</pose>
-      <inertial>
-        <pose>0 0 0 0 -0 0</pose>
-        <mass>0.005</mass>
-        <inertia>
-          <ixx>9.75e-07</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.000166704</iyy>
-          <iyz>0</iyz>
-          <izz>0.000167604</izz>
-        </inertia>
-      </inertial>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>0</self_collide>
-      <enable_wind>0</enable_wind>
-      <kinematic>0</kinematic>
-      <visual name='rotor_1_visual'>
-        <pose>0.676 -0.02 0.044 3.14159 -0 -3.14159</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mini_e/meshes/VTOL_Rotor_Front_Right.STL</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Blue</name>
-            <uri>__default__</uri>
-          </script>
-          <shader type='pixel'/>
-        </material>
-        <transparency>0</transparency>
-        <cast_shadows>1</cast_shadows>
-      </visual>
-    </link>
-
-    <link name='rotor_2'>
-      <pose>0.52 0.516 0.27 0 -0 0</pose>
-      <inertial>
-        <pose>0 0 0 0 -0 0</pose>
-        <mass>0.005</mass>
-        <inertia>
-          <ixx>9.75e-07</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.000166704</iyy>
-          <iyz>0</iyz>
-          <izz>0.000167604</izz>
-        </inertia>
-      </inertial>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>0</self_collide>
-      <enable_wind>0</enable_wind>
-      <kinematic>0</kinematic>
-      <visual name='rotor_2_visual'>
-        <pose>0.676 -0.02 0.044 3.14159 -0 -3.14159</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mini_e/meshes/VTOL_Rotor_Front_Right.STL</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Blue</name>
-            <uri>__default__</uri>
-          </script>
-          <shader type='pixel'/>
-        </material>
-        <transparency>0</transparency>
-        <cast_shadows>1</cast_shadows>
-      </visual>
-    </link>
-
-    <link name='rotor_3'>
-      <pose>-0.52 -0.516 0.27 0 -0 0</pose>
-      <inertial>
-        <pose>0 0 0 0 -0 0</pose>
-        <mass>0.005</mass>
-        <inertia>
-          <ixx>9.75e-07</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.000166704</iyy>
-          <iyz>0</iyz>
-          <izz>0.000167604</izz>
-        </inertia>
-      </inertial>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>0</self_collide>
-      <enable_wind>0</enable_wind>
-      <kinematic>0</kinematic>
-      <visual name='rotor_3_visual'>
-        <pose>0.676 -0.02 0.044 3.14159 -0 -3.14159</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mini_e/meshes/VTOL_Rotor_Front_Right.STL</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Blue</name>
-            <uri>__default__</uri>
-          </script>
-          <shader type='pixel'/>
-        </material>
-        <transparency>0</transparency>
-        <cast_shadows>1</cast_shadows>
-      </visual>
-    </link>
-
-    <link name='rotor_pusher'>
-      <pose>-0.531000 0 0.317000 0 1.57 0</pose>
-      <inertial>
-        <pose>0 0 0 0 -0 0</pose>
-        <mass>0.005</mass>
-        <inertia>
-          <ixx>9.7e-07</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.0001667</iyy>
-          <iyz>0</iyz>
-          <izz>0.0001676</izz>
-        </inertia>
-      </inertial>
-      <gravity>1</gravity>
-      <velocity_decay/>
-      <self_collide>0</self_collide>
-      <enable_wind>0</enable_wind>
-      <kinematic>0</kinematic>
-      <visual name='rotor_pusher_visual'>
-        <pose>-0.190000 -0.024500 1.725000 3.14159 1.57 -3.14159</pose>
-        <geometry>
-          <mesh>
-            <scale>0.001 0.001 0.001</scale>
-            <uri>model://mini_e/meshes/Pusher_Prop.STL</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <script>
-            <name>Gazebo/Blue</name>
-            <uri>__default__</uri>
-          </script>
-          <shader type='pixel'>
-            <normal_map>__default__</normal_map>
-          </shader>
-        </material>
-        <transparency>0</transparency>
-        <cast_shadows>1</cast_shadows>
-      </visual>
-    </link>
-
-
-
-  <!-- JOINTS -->
     <joint name='canard_joint' type='revolute'>
       <parent>wingfuselage_link</parent>
       <child>canard</child>
@@ -507,7 +565,7 @@
           <upper>0.10123</upper> <!-- 5.8 deg-->
         </limit>
         <dynamics>
-          <damping>1</damping>
+          <damping>1.000</damping>
         </dynamics>
       </axis>
       <physics>
@@ -528,7 +586,7 @@
           <upper>0.36652</upper> <!-- 21 deg-->
         </limit>
         <dynamics>
-          <damping>1</damping>
+          <damping>1.000</damping>
         </dynamics>
       </axis>
       <physics>
@@ -537,7 +595,6 @@
         </ode>
       </physics>
     </joint>
-
     <joint name='right_aileron_joint' type='revolute'>
       <parent>wingfuselage_link</parent>
       <child>right_aileron</child>
@@ -549,7 +606,7 @@
           <upper>0.35081</upper> <!-- 20.1 deg-->
         </limit>
         <dynamics>
-          <damping>1</damping>
+          <damping>1.000</damping>
         </dynamics>
       </axis>
       <physics>
@@ -558,14 +615,12 @@
         </ode>
       </physics>
     </joint>
-
     <joint name='rudder_joint' type='revolute'>
       <parent>wingfuselage_link</parent>
       <child>rudder</child>
       <pose>-0.025 0 0 0 -0.21 0</pose>
       <axis>
         <xyz>-0.21 0 1</xyz>
-        <use_parent_model_frame>1</use_parent_model_frame>
         <limit>
           <lower>-0.78016</lower> <!-- -44.7 deg-->
           <upper>0.8081</upper> <!-- 46.3 deg-->
@@ -580,124 +635,15 @@
         </ode>
       </physics>
     </joint>
-
-    <joint name='rotor_0_joint' type='revolute'>
-      <parent>wingfuselage_link</parent>
-      <child>rotor_0</child>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-1e+16</lower>
-          <upper>1e+16</upper>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-
-    <joint name='rotor_1_joint' type='revolute'>
-      <parent>wingfuselage_link</parent>
-      <child>rotor_1</child>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-1e+16</lower>
-          <upper>1e+16</upper>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-
-    <joint name='rotor_2_joint' type='revolute'>
-      <parent>wingfuselage_link</parent>
-      <child>rotor_2</child>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-1e+16</lower>
-          <upper>1e+16</upper>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-
-    <joint name='rotor_3_joint' type='revolute'>
-      <parent>wingfuselage_link</parent>
-      <child>rotor_3</child>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>-1e+16</lower>
-          <upper>1e+16</upper>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-
-    <joint name='rotor_pusher_joint' type='revolute'>
-      <parent>wingfuselage_link</parent>
-      <child>rotor_pusher</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>-1e+16</lower>
-          <upper>1e+16</upper>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-
-    <joint name='mini_e/imu_joint' type='revolute'>
-      <parent>wingfuselage_link</parent>
-      <child>mini_e/imu_link</child>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0</upper>
-          <effort>0</effort>
-          <velocity>0</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-
-    <joint name='airspeed_joint' type='fixed'>
-      <child>airspeed::link</child>
-      <parent>wingfuselage_link</parent>
-    </joint>
-
+    <include>
+      <uri>model://gps</uri>
+      <pose>0 0 0 0 0 0</pose>
+      <name>gps</name>
+    </include>
     <joint name='gps_joint' type='fixed'>
       <child>gps::link</child>
       <parent>wingfuselage_link</parent>
     </joint>
-
-
-
-  <!-- PLUGINS -->
     <plugin name='wing_body_port_lift' filename='libLiftDragPlugin.so'>
       <a0>0.128633027</a0>
       <cla>5.798332887</cla>
@@ -719,10 +665,13 @@
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>wingfuselage_link</link_name>
-      <control_joint_name>left_aileron_joint</control_joint_name>
+      <control_joint_name>
+        left_aileron_joint
+      </control_joint_name>
       <control_joint_rad_to_cl>-0.790364</control_joint_rad_to_cl>
+      <robotNamespace></robotNamespace>
+      <windSubTopic>world_wind</windSubTopic>
     </plugin>
-
     <plugin name='wing_body_stbd_lift' filename='libLiftDragPlugin.so'>
       <a0>0.128633027</a0>
       <cla>5.798332887</cla>
@@ -744,10 +693,13 @@
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>wingfuselage_link</link_name>
-      <control_joint_name>right_aileron_joint</control_joint_name>
+      <control_joint_name>
+        right_aileron_joint
+      </control_joint_name>
       <control_joint_rad_to_cl>-0.790364</control_joint_rad_to_cl>
+      <robotNamespace></robotNamespace>
+      <windSubTopic>world_wind</windSubTopic>
     </plugin>
-
     <plugin name='canard_lift' filename='libLiftDragPlugin.so'>
       <a0>0</a0>
       <cla>0</cla>
@@ -769,10 +721,13 @@
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>wingfuselage_link</link_name>
-      <control_joint_name>canard_joint</control_joint_name>
+      <control_joint_name>
+        canard_joint
+      </control_joint_name>
       <control_joint_rad_to_cl>0.773531</control_joint_rad_to_cl>
+      <robotNamespace></robotNamespace>
+      <windSubTopic>world_wind</windSubTopic>
     </plugin>
-
     <plugin name='rudder_lift' filename='libLiftDragPlugin.so'>
       <a0>0.0</a0>
       <cla>0.37111</cla>
@@ -794,30 +749,15 @@
       <forward>1 0 0</forward>
       <upward>0 1 0</upward>
       <link_name>wingfuselage_link</link_name>
-      <control_joint_name>rudder_joint</control_joint_name>
+      <control_joint_name>
+        rudder_joint
+      </control_joint_name>
       <control_joint_rad_to_cl>0.130219</control_joint_rad_to_cl>
+      <robotNamespace></robotNamespace>
+      <windSubTopic>world_wind</windSubTopic>
     </plugin>
-
-    <plugin name='front_left_motor_model' filename='libgazebo_motor_model.so'>
-      <robotNamespace/>
-      <jointName>rotor_2_joint</jointName>
-      <linkName>rotor_2</linkName>
-      <turningDirection>cw</turningDirection>
-      <timeConstantUp>0.0125</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>1115</maxRotVelocity>
-      <motorConstant>0.000031831</motorConstant>
-      <momentConstant>0.015541293</momentConstant>
-      <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
-      <motorNumber>2</motorNumber>
-      <rotorDragCoefficient>0.000106428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-6</rollingMomentCoefficient>
-      <motorSpeedPubTopic>/motor_speed/2</motorSpeedPubTopic>
-      <rotorVelocitySlowdownSim>20</rotorVelocitySlowdownSim>
-    </plugin>
-
     <plugin name='front_right_motor_model' filename='libgazebo_motor_model.so'>
-      <robotNamespace/>
+      <robotNamespace></robotNamespace>
       <jointName>rotor_0_joint</jointName>
       <linkName>rotor_0</linkName>
       <turningDirection>ccw</turningDirection>
@@ -829,13 +769,12 @@
       <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
       <motorNumber>0</motorNumber>
       <rotorDragCoefficient>0.000106428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-6</rollingMomentCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <motorSpeedPubTopic>/motor_speed/0</motorSpeedPubTopic>
       <rotorVelocitySlowdownSim>20</rotorVelocitySlowdownSim>
     </plugin>
-
     <plugin name='back_left_motor_model' filename='libgazebo_motor_model.so'>
-      <robotNamespace/>
+      <robotNamespace></robotNamespace>
       <jointName>rotor_1_joint</jointName>
       <linkName>rotor_1</linkName>
       <turningDirection>ccw</turningDirection>
@@ -847,13 +786,29 @@
       <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
       <motorNumber>1</motorNumber>
       <rotorDragCoefficient>0.000106428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-6</rollingMomentCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <motorSpeedPubTopic>/motor_speed/1</motorSpeedPubTopic>
       <rotorVelocitySlowdownSim>20</rotorVelocitySlowdownSim>
     </plugin>
-
+    <plugin name='front_left_motor_model' filename='libgazebo_motor_model.so'>
+      <robotNamespace></robotNamespace>
+      <jointName>rotor_2_joint</jointName>
+      <linkName>rotor_2</linkName>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1115</maxRotVelocity>
+      <motorConstant>0.000031831</motorConstant>
+      <momentConstant>0.015541293</momentConstant>
+      <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
+      <motorNumber>2</motorNumber>
+      <rotorDragCoefficient>0.000106428</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <motorSpeedPubTopic>/motor_speed/2</motorSpeedPubTopic>
+      <rotorVelocitySlowdownSim>20</rotorVelocitySlowdownSim>
+    </plugin>
     <plugin name='back_right_motor_model' filename='libgazebo_motor_model.so'>
-      <robotNamespace/>
+      <robotNamespace></robotNamespace>
       <jointName>rotor_3_joint</jointName>
       <linkName>rotor_3</linkName>
       <turningDirection>cw</turningDirection>
@@ -865,13 +820,12 @@
       <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
       <motorNumber>3</motorNumber>
       <rotorDragCoefficient>0.000106428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-6</rollingMomentCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <motorSpeedPubTopic>/motor_speed/3</motorSpeedPubTopic>
       <rotorVelocitySlowdownSim>20</rotorVelocitySlowdownSim>
     </plugin>
-
     <plugin name='pusher' filename='libgazebo_motor_model.so'>
-      <robotNamespace/>
+      <robotNamespace></robotNamespace>
       <jointName>rotor_pusher_joint</jointName>
       <linkName>rotor_pusher</linkName>
       <turningDirection>cw</turningDirection>
@@ -883,29 +837,13 @@
       <commandSubTopic>/gazebo/command/motor_speed</commandSubTopic>
       <motorNumber>4</motorNumber>
       <rotorDragCoefficient>0.000106428</rotorDragCoefficient>
-      <rollingMomentCoefficient>1e-6</rollingMomentCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <motorSpeedPubTopic>/motor_speed/4</motorSpeedPubTopic>
       <rotorVelocitySlowdownSim>20</rotorVelocitySlowdownSim>
     </plugin>
-
-    <plugin name='gazebo_imu_plugin' filename='libgazebo_imu_plugin.so'>
-      <robotNamespace/>
-      <linkName>mini_e/imu_link</linkName>
-      <imuTopic>/imu</imuTopic>
-      <gyroscopeNoiseDensity>0.0003394</gyroscopeNoiseDensity>
-      <gyroscopeRandomWalk>3.8785e-05</gyroscopeRandomWalk>
-      <gyroscopeBiasCorrelationTime>1000.0</gyroscopeBiasCorrelationTime>
-      <gyroscopeTurnOnBiasSigma>0.0087</gyroscopeTurnOnBiasSigma>
-      <accelerometerNoiseDensity>0.004</accelerometerNoiseDensity>
-      <accelerometerRandomWalk>0.006</accelerometerRandomWalk>
-      <accelerometerBiasCorrelationTime>300.0</accelerometerBiasCorrelationTime>
-      <accelerometerTurnOnBiasSigma>0.196</accelerometerTurnOnBiasSigma>
-    </plugin>
-
     <plugin name='groundtruth_plugin' filename='libgazebo_groundtruth_plugin.so'>
       <robotNamespace/>
     </plugin>
-
     <plugin name='magnetometer_plugin' filename='libgazebo_magnetometer_plugin.so'>
       <robotNamespace/>
       <pubRate>100</pubRate>
@@ -914,13 +852,11 @@
       <biasCorrelationTime>600</biasCorrelationTime>
       <magTopic>/mag</magTopic>
     </plugin>
-
     <plugin name='barometer_plugin' filename='libgazebo_barometer_plugin.so'>
       <robotNamespace/>
       <pubRate>50</pubRate>
       <baroTopic>/baro</baroTopic>
     </plugin>
-
     <plugin name='mavlink_interface' filename='libgazebo_mavlink_interface.so'>
       <robotNamespace></robotNamespace>
       <imuSubTopic>/imu</imuSubTopic>
@@ -1024,6 +960,19 @@
           <joint_name>rudder_joint</joint_name>
         </channel>
       </control_channels>
+    </plugin>
+    <plugin name='gazebo_imu_plugin' filename='libgazebo_imu_plugin.so'>
+      <robotNamespace></robotNamespace>
+      <linkName>standard_vtol/imu_link</linkName>
+      <imuTopic>/imu</imuTopic>
+      <gyroscopeNoiseDensity>0.0003394</gyroscopeNoiseDensity>
+      <gyroscopeRandomWalk>3.8785e-05</gyroscopeRandomWalk>
+      <gyroscopeBiasCorrelationTime>1000.0</gyroscopeBiasCorrelationTime>
+      <gyroscopeTurnOnBiasSigma>0.0087</gyroscopeTurnOnBiasSigma>
+      <accelerometerNoiseDensity>0.004</accelerometerNoiseDensity>
+      <accelerometerRandomWalk>0.006</accelerometerRandomWalk>
+      <accelerometerBiasCorrelationTime>300.0</accelerometerBiasCorrelationTime>
+      <accelerometerTurnOnBiasSigma>0.196</accelerometerTurnOnBiasSigma>
     </plugin>
     <static>0</static>
   </model>
