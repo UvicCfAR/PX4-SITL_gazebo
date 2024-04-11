@@ -1,6 +1,5 @@
-<?xml version="1.0"?>
 <!-- DO NOT EDIT: Generated from standard_vtol.sdf.jinja -->
-<sdf version='1.5'>
+<sdf version='1.6'>
   <model name='mini_e'>
     <pose>0 0 0.35 0 0 0</pose>
     <link name='wingfuselage_link'>
@@ -138,11 +137,6 @@
         </surface>
       </collision>
     </link>
-
-    
-
-    
-
     <link name='mini_e/imu_link'>
       <pose>0 0 0 0 0 0</pose>
       <inertial>
@@ -186,7 +180,7 @@
       <parent>base_link</parent>
     </joint>
     <link name='rotor_0'>
-      <pose>0.52 -0.516 0.27 0 0 0</pose>
+      <pose>0.52 -0.516 -0.08 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -235,7 +229,7 @@
       </axis>
     </joint>
     <link name='rotor_1'>
-      <pose>-0.52 0.516 0.27 0 -0 0</pose>
+      <pose>-0.52 0.516 -0.08 0 -0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -284,7 +278,7 @@
       </axis>
     </joint>
     <link name='rotor_2'>
-      <pose>0.52 0.516 0.27 0 0 0</pose>
+      <pose>0.52 0.516 -0.08 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -333,7 +327,7 @@
       </axis>
     </joint>
     <link name='rotor_3'>
-      <pose>-0.52 -0.516 0.27 0 0 0</pose>
+      <pose>-0.52 -0.516 -0.08 0 0 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -383,7 +377,7 @@
     </joint>
 
     <link name='rotor_pusher'>
-      <pose>-0.531000 0 0.317000 0 1.57 0</pose>
+      <pose>-0.531000 0 -0.033 0 1.57 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -434,7 +428,7 @@
     </joint>
 
     <link name='canard'>
-      <pose>0.814 0 0.293 0 -0 0</pose>
+      <pose>0.814 0 0.057 0 -0 0</pose>
       <inertial>
         <mass>0.00000001</mass>
         <inertia>
@@ -464,7 +458,7 @@
       </visual>
     </link>
     <link name='left_aileron'>
-      <pose>-0.3 1.08 0.35 0 -0 0</pose>
+      <pose>-0.3 1.08 0 0 -0 0</pose>
       <inertial>
         <mass>0.00000001</mass>
         <inertia>
@@ -494,7 +488,7 @@
       </visual>
     </link>
     <link name='right_aileron'>
-      <pose>-0.3 -1.08 0.35 0 0 0</pose>
+      <pose>-0.3 -1.08 0 0 0 0</pose>
       <inertial>
         <mass>0.00000001</mass>
         <inertia>
@@ -525,7 +519,7 @@
     </link>
 
     <link name='rudder'>
-      <pose>-0.46 0 0.46 0 -0 0</pose>
+      <pose>-0.46 0 0.11 0 -0 0</pose>
       <inertial>
         <mass>0.00000001</mass>
         <inertia>
